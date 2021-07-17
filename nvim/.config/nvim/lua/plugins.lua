@@ -32,10 +32,13 @@ return require('packer').startup(function()
 	
 	use 'kyazdani42/nvim-web-devicons'
 	-- nvim buffers/tabs line
-	use {'akinsho/nvim-bufferline.lua', config = function() require("bufferline") end, requires = 'kyazdani42/nvim-web-devicons'}
+	use {'akinsho/nvim-bufferline.lua', config = function() require("plugins/bufferline") end, requires = 'kyazdani42/nvim-web-devicons'}
 	
 	-- git messenger
 	use 'rhysd/git-messenger.vim'
+	
+	-- Maximizer
+	use 'szw/vim-maximizer'
 	
 	-- Git Blame/Signs
 	use {
