@@ -12,18 +12,10 @@ o.incsearch = true
 o.ignorecase = true
 o.scrolloff = 8
 o.termguicolors = true
-o.wildmode =longest,list,full
+o.wildmode ='longest,list,full'
 o.wildmenu = true
 
-o.wildignore= { 
-	'*.pyc',
-	'*_build/*',
-	'**/coverage/*',
-	'**/node_modules/*',
-	'**/android/*',
-	'**/ios/*',
-	'**/.git/*'
-}
+o.wildignore= '*.pyc,*_build/*,**/coverage/*,**/node_modules/*,**/android/*,**/ios/*,**/.git/*'
 
 -- Window Options
 wo.number = true

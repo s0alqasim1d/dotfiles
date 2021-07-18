@@ -37,6 +37,8 @@ return require('packer').startup(function()
 	-- git messenger
 	use 'rhysd/git-messenger.vim'
 	
+	use { 'mg979/vim-visual-multi', branch = 'master' }
+	
 	-- Maximizer
 	use 'szw/vim-maximizer'
 	
