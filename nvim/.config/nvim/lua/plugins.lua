@@ -2,6 +2,7 @@ return require('packer').startup(function()
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
 	
+----------------- Related to Colors/Themes -----------------------
 	-- Color scheme "fromthehell"
 	use 'szorfein/fromthehell.vim'
 	-- Color scheme "material"
@@ -27,29 +28,25 @@ return require('packer').startup(function()
 	-- Color scheme "Calvera-dark"
 	use 'yashguptaz/calvera-dark.nvim'
 	
-	-- Highlight Search Lens
-	use {'kevinhwang91/nvim-hlslens'}
-	
-	use 'kyazdani42/nvim-web-devicons'
-	-- nvim buffers/tabs line
-	use {'akinsho/nvim-bufferline.lua', config = function() require("plugins/bufferline") end, requires = 'kyazdani42/nvim-web-devicons'}
-	
-	-- git messenger
-	use 'rhysd/git-messenger.vim'
-	
-	use { 'mg979/vim-visual-multi', branch = 'master' }
-	
+----------------- Related to Windows -----------------------
 	-- Maximizer
 	use 'szw/vim-maximizer'
 	
-	-- Git Blame/Signs
+	-- NVim Tree
 	use {
-		'lewis6991/gitsigns.nvim',
-		requires = {
-			'nvim-lua/plenary.nvim'
-		},
-		config = function() require('gitsigns').setup() end
+		'kyazdani42/nvim-tree.lua',
+		requires = {{'kyazdani42/nvim-web-devicons'}}
 	}
+		
+	-- Telescope
+	use {
+		'nvim-telescope/telescope.nvim',
+		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+	}
+	
+	-- Dashboard
+	use 'glepnir/dashboard-nvim'
+	
 	
 	-- Shade inactive windows 
 	-- use {
@@ -64,9 +61,31 @@ return require('packer').startup(function()
 			-- }
 		-- }) end
 	-- }
+----------------- Related to Buffers -----------------------
+	-- Highlight Search Lens
+	use {'kevinhwang91/nvim-hlslens'}
 	
-	-- UltTest
-	use { 'rcarriga/vim-ultest', requires = {'vim-test/vim-test'}, run = ':UpdateRemotePlugins' }
+	-- git messenger
+	use 'rhysd/git-messenger.vim'
+	
+	-- Multicursors
+	use { 'mg979/vim-visual-multi', branch = 'master' }
+	
+	-- Smooth Scroll
+	use 'karb94/neoscroll.nvim'
+
+	-- nvim buffers/tabs line
+	use {'akinsho/nvim-bufferline.lua', config = function() require("plugins/bufferline") end, requires = 'kyazdani42/nvim-web-devicons'}
+	
+	-- Git Blame/Signs
+	use {
+		'lewis6991/gitsigns.nvim',
+		requires = {
+			'nvim-lua/plenary.nvim'
+		},
+		config = function() require('gitsigns').setup() end
+	}
+	
 	-- Custom Status line
 	use {
 		'glepnir/galaxyline.nvim',
@@ -77,28 +96,15 @@ return require('packer').startup(function()
 		requires = {'kyazdani42/nvim-web-devicons', opt = true}
 	}
 	
-	-- NVim Tree
-	use {
-		'kyazdani42/nvim-tree.lua',
-		requires = {{'kyazdani42/nvim-web-devicons'}}
-	}
+	-- autoclose & autorename tags closely related to nvim-treesitter || Look at later
+	--use 'windwp/nvim-ts-autotag'
+	
 	-- Neovim TreeSitter
 	use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
 	
-	-- Telescope
-	use {
-		'nvim-telescope/telescope.nvim',
-		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-	}
-		
-	-- Smooth Scroll
-	use 'karb94/neoscroll.nvim'
-	
-	-- Dashboard
-	use 'glepnir/dashboard-nvim'
 	-- Peek via numbers
 	use {
 		'nacro90/numb.nvim',
@@ -144,8 +150,21 @@ return require('packer').startup(function()
 	
 	}
 	
+	-- UltTest
+	use { 'rcarriga/vim-ultest', requires = {'vim-test/vim-test'}, run = ':UpdateRemotePlugins' }
 	-- Neovim LSP-Config
 	use 'neovim/nvim-lspconfig'
 	-- Neovim LSP Saga
 	use 'glepnir/lspsaga.nvim'
+	-- Lsp Status
+	use 'nvim-lua/lsp-status.nvim'
+----------------- Related to Keys -----------------------
+	use 'ThePrimeagen/vim-be-good'
+	
+	-- Which-key wrapper for easier setup
+	use {
+		'AckslD/nvim-whichkey-setup.lua',
+		requires = {'liuchengxu/vim-which-key'},
+	}
+	
 end)
