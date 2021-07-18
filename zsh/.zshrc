@@ -6,6 +6,16 @@
 ##fi
 
 
+###################### ENVIRONMENT VARIABLES #######################
+export XDG_CONFIG_HOME=$HOME/.config
+
+export PATH=$HOME/local/rust_apps/fnm:$PATH
+eval "`fnm env`"
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+###################### ENVIRONMENT VARIABLES #######################
+
 
 ###################### Added by Zinit's installer ##########################
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -84,21 +94,10 @@ zinit lucid light-mode \
 
 
 ###################### Autosuggestions & fast-syntax-highlighting ##########################
-zinit ice wait lucid atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
-zinit light zdharma/fast-syntax-highlighting
+#zinit ice wait lucid atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
+#zinit light zdharma/fast-syntax-highlighting
 
 zinit ice wait lucid atload"!_zsh_autosuggest_start"
 zinit load zsh-users/zsh-autosuggestions
 ###################### Autosuggestions & fast-syntax-highlighting ##########################
 
-
-
-###################### ENVIRONMENT VARIABLES #######################
-export $XDG_CONFIG_HOME=$HOME/.config
-
-export PATH=$HOME/local/rust_apps/fnm:$PATH
-eval "`fnm env`"
-
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-###################### ENVIRONMENT VARIABLES #######################
