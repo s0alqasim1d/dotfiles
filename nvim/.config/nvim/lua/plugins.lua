@@ -29,6 +29,9 @@ return require('packer').startup(function()
 	use 'yashguptaz/calvera-dark.nvim'
 	
 ----------------- Related to Windows -----------------------
+	-- Simpler keymapper in Lua
+	use 'Iron-E/nvim-cartographer'
+
 	-- Maximizer
 	use 'szw/vim-maximizer'
 	
