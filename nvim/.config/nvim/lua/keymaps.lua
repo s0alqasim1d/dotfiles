@@ -68,6 +68,7 @@ if hasMap then
 	-- map('n', '<Up>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>', {noremap = true, silent = true})
 
 	-- Center screen after search forward/backward
+	nnoremap = map.n.nore
 	nnoremap['n'] = 'nzzzv'
 	nnoremap['N'] = 'Nzzzv'
 
