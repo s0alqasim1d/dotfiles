@@ -4,9 +4,12 @@
 DOTFILES=$(pwd)
 STOW_FOLDERS="nvim,lf,lsd,tmux,zsh"
 
+echo "Dotfile Installer"
+
 pushd $DOTFILES
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
 do
+	echo "Stowing $folder"
     stow -D $folder -t $HOME
     stow $folder -t $HOME
 done
