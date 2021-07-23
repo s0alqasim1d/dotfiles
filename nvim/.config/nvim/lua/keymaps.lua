@@ -17,9 +17,9 @@ if hasMap then
 	-- Buffer navigation
 	nnoremap_silent = nmap_silent.nore
 
-	nnoremap_silent['<C-T>'] = ':BufferNext<CR>'
-	nnoremap_silent['<M-TAB>'] = ':BufferNext<CR>'
-	nnoremap_silent['<S-TAB>'] = ':BufferPrev<CR>'
+	nnoremap_silent['<C-T>'] = ':<CR>'
+	nnoremap_silent['<M->>'] = ':BufferLineCycleNext<CR>'
+	nnoremap_silent['<M-<>'] = ':BufferLineCyclePrev<CR>'
 	-- map('n', '<C-T>', ':BufferNext<CR>', {noremap = true, silent = true})
 	-- map('n', '<M-TAB>', ':BufferNext<CR>', {noremap = true, silent = true})
 	-- map('n', '<S-TAB>', ':BufferPrev<CR>', {noremap = true, silent = true})
