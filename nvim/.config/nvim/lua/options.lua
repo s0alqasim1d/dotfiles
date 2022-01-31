@@ -1,7 +1,11 @@
+require('os')
 local o = vim.o								-- Global Options
 local wo = vim.wo							-- Window Options
 local bo = vim.bo							-- Buffer Options
-
+local homedir = os.getenv('HOME')
+if homedir == nil then
+	homedir = 'c:\\users\\s.alqasim'
+end
 --===================Global Options===================
 o.autoindent = true 						-- Auto indent
 o.cmdheight = 1 							-- Space for cmd messages
@@ -30,7 +34,7 @@ o.clipboard = 'unnamedplus'					-- Share clipboard between system & vim
 o.mouse = 'a'								-- Enable mouse
 o.swapfile = false							-- Disable swapfile
 o.backup = false							-- disable backup
-o.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir/"
+o.undodir = homedir .. "/.cache/nvim/undodir/"
 o.shell = '/bin/zsh'						-- Set default shell
 o.showtabline = 2 							-- Always show buffer tabs
 o.splitbelow = true 						-- Hsplit below
