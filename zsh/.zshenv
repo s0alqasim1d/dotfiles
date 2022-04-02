@@ -1,12 +1,16 @@
-
 export XDG_DATA_HOME=${XDG_DATA_HOME:="$HOME/.local/share"}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:="$HOME/.cache"}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:="$HOME/.config"}
 export EDITOR="nvim"
-export VISUAL="nvim"
+export VISUAL=$EDITOR
 export TERM=xterm-256color
-export HISTFILE="$XDG_DATA_HOME"/zsh/history
+export HISTFILE="$HOME"/.cache/zsh/history
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
+
+eval "`fnm env`"
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 export LF_ICONS="\
 di=:\

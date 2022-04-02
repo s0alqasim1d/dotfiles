@@ -27,6 +27,28 @@ return require('packer').startup(function()
 	use 'rking/vim-detailed'
 	-- Color scheme "Calvera-dark"
 	use 'yashguptaz/calvera-dark.nvim'
+	-- Color scheme "Lush"
+	use 'rktjmp/lush.nvim'
+	-- Color scheme "seoul256"
+	use 'junegunn/seoul256.vim'
+	-- Color scheme "sonokai"
+	use 'sainnhe/sonokai'
+	-- Color scheme "tokyonight"
+	use 'ghifarit53/tokyonight-vim'
+	-- Color scheme "synthwave84"
+	use 'artanikin/vim-synthwave84'
+	-- Color scheme "shades-of-purple"
+	use 'Rigellute/shades-of-purple.vim'
+	-- Color scheme "cyberpunk"
+	use 'thedenisnikulin/vim-cyberpunk'
+	-- Color scheme "eldar"
+	use 'agude/vim-eldar'
+	-- Color scheme "lucid"
+	use 'cseelus/vim-colors-lucid'
+	-- Color scheme "papercolor"
+	use 'NLKNguyen/papercolor-theme'
+	-- Color scheme "ayu"
+	use 'ayu-theme/ayu-vim'
 	
 ----------------- Related to Windows -----------------------
 	-- Simpler keymapper in Lua
@@ -157,6 +179,8 @@ return require('packer').startup(function()
 	use { 'rcarriga/vim-ultest', requires = {'vim-test/vim-test'}, run = ':UpdateRemotePlugins' }
 	-- Neovim LSP-Config
 	use 'neovim/nvim-lspconfig'
+	-- Neovim LSPContainers
+	use { 'lspcontainers/lspcontainers.nvim', config = function() require'plugins/lspconfig' end }
 	-- Neovim LSP Saga
 	use 'glepnir/lspsaga.nvim'
 	-- Lsp Status

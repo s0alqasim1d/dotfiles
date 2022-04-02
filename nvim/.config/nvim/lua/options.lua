@@ -2,9 +2,9 @@ require('os')
 local o = vim.o								-- Global Options
 local wo = vim.wo							-- Window Options
 local bo = vim.bo							-- Buffer Options
-local homedir = os.getenv('HOME')
+local homedir = os.getenv('HOME') or os.getenv('USERPROFILE')
 if homedir == nil then
-	homedir = 'c:\\users\\s.alqasim'
+	homedir = 'c:/users/s.alqasim'
 end
 --===================Global Options===================
 o.autoindent = true 						-- Auto indent
