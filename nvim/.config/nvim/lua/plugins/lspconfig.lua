@@ -9,6 +9,7 @@ local servers = {
 	-- "gopls", has problem with env.HOME not being found
 	"html",
 	"jsonls",
+	"powershell_es",
 	"pyright",
 	"rust_analyzer",
 	"sumneko_lua",
