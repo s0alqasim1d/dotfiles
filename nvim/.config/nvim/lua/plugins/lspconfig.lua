@@ -16,6 +16,35 @@ local servers = {
 	"tsserver",
 	"yamlls"
 }
+local lsp_settings = {
+	["sumneko_lua"] = {
+		Lua = {
+			diagnostics = {
+				globals = {"vim", "use", "on_attach"},
+			},
+        },
+	},
+	["yamlls"] = {
+		yaml = {
+			yamlVersion = '1.2',
+			trace = {
+				server = "verbose"
+			},
+			schemas = {
+--				["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/master/all.json"] = "/*.k8s.yaml",
+				["kubernetes"] = "/*.k8s.yaml",
+--				["C:\\Users\\AlQasim\\Documents\\yamlls-schemas\\kubernetes-json-schema\\master-local\\all.json"] = "/*.k8s.yaml",
+			},
+			schemaDownload = {  enable = true },
+			validate = true,
+		},
+		redhat = {
+			telemetry = {
+				enabled = false
+			}
+		}
+	}
+}
 
 for _, lsp in pairs(servers) do
 	-- print(lsp)
@@ -26,11 +55,9 @@ for _, lsp in pairs(servers) do
 		cmd = lspcontainers.command(lsp),
 		root_dir = lspconfig.util.root_pattern(".git", vim.fn.getcwd()),
 		on_attach = on_attach,
-		flags = {
-		  -- This will be the default in neovim 0.7+
-		  debounce_text_changes = 150,
-		},
+		flags = {},
 		capabilities = capabilities,
+		settings = lsp_settings[lsp] or nil
 	}
 end
 

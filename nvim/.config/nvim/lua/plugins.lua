@@ -60,12 +60,12 @@ return require('packer').startup(function()
 				easing_function = nil,       -- Default easing function
 				pre_hook = nil,              -- Function to run before the scrolling animation starts
 				post_hook = nil,             -- Function to run after the scrolling animation ends
-				performance_mode = false,    -- Disable "Performance Mode" on all buffers.
+				performance_mode = true,    -- Disable "Performance Mode" on all buffers.
 			}) end
 	}
 
 	-- nvim buffers/tabs line
-	use {'akinsho/nvim-bufferline.lua', config = function() require("plugins/bufferline") end, requires = 'kyazdani42/nvim-web-devicons'}
+	use {'akinsho/nvim-bufferline.lua', config = [[require("plugins/bufferline")]], requires = 'kyazdani42/nvim-web-devicons'}
 
 	-- Git Blame/Signs
 	use {
@@ -73,7 +73,7 @@ return require('packer').startup(function()
 		requires = {
 			'nvim-lua/plenary.nvim'
 		},
-		config = function() require('gitsigns').setup() end
+		config = [[require('gitsigns').setup()]]
 	}
 
 	-- Custom Status line
@@ -81,7 +81,7 @@ return require('packer').startup(function()
 		'glepnir/galaxyline.nvim',
 		branch = 'main',
 		-- your statusline
-		config = function() require'plugins/statusline' end, --don't have config yet
+		config = [[require'plugins/statusline']], --don't have config yet
 		-- some optional icons
 		requires = {'kyazdani42/nvim-web-devicons', opt = true}
 	}
@@ -91,9 +91,30 @@ return require('packer').startup(function()
 
 	-- Neovim TreeSitter
 	use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
+		'nvim-treesitter/nvim-treesitter',
+		requires = {
+		      'nvim-treesitter/nvim-treesitter-refactor',
+		      'RRethy/nvim-treesitter-textsubjects',
+		},
+		run = ':TSUpdate',
+		config = [[require'plugins/treesitter']]
+	}
+
+	use { 'lukas-reineke/indent-blankline.nvim',
+		requires = {
+			'nvim-treesitter/nvim-treesitter'
+		},
+		config = function ()
+			vim.opt.list = true
+			--vim.opt.listchars:append("space:⋅")
+			vim.opt.listchars:append("eol:↴")
+			require("indent_blankline").setup {
+    				space_char_blankline = " ",
+    				show_current_context = true,
+    				show_current_context_start = true,
+			}
+		end
+	}
 
 	-- Peek via numbers
 	use {
@@ -141,22 +162,20 @@ return require('packer').startup(function()
 	}
 
 	-- UltTest
-	use { 'rcarriga/vim-ultest', requires = {'vim-test/vim-test'}, run = ':UpdateRemotePlugins' }
+	-- use { 'rcarriga/vim-ultest', requires = {'vim-test/vim-test'}, run = ':UpdateRemotePlugins' }
 
 
 	-- Neovim LSPContainers
 	use { 'lspcontainers/lspcontainers.nvim',
-				requires = {
-						'neovim/nvim-lspconfig',
-						'hrsh7th/nvim-cmp',
-						'hrsh7th/cmp-nvim-lsp',
-						'saadparwaiz1/cmp_luasnip',
-						'L3MON4D3/LuaSnip'
-				},
-		config = function() require'plugins/lspconfig' end
-		}
-	-- Neovim LSP Saga
-	use 'glepnir/lspsaga.nvim'
+		requires = {
+			'neovim/nvim-lspconfig',
+			'hrsh7th/nvim-cmp',
+			'hrsh7th/cmp-nvim-lsp',
+			'saadparwaiz1/cmp_luasnip',
+			'L3MON4D3/LuaSnip'
+		},
+		config = [[require'plugins/lspconfig']]
+	}
 	-- Lsp Status
 	use 'nvim-lua/lsp-status.nvim'
 ----------------- Related to Keys -----------------------
@@ -196,7 +215,7 @@ return require('packer').startup(function()
 	use 'rking/vim-detailed'
 	-- Color scheme "Calvera-dark"
 	use 'yashguptaz/calvera-dark.nvim'
-	-- Color scheme "Lush"
+	-- This is not a colorscheme
 	use 'rktjmp/lush.nvim'
 	-- Color scheme "seoul256"
 	use 'junegunn/seoul256.vim'
@@ -218,5 +237,10 @@ return require('packer').startup(function()
 	use 'NLKNguyen/papercolor-theme'
 	-- Color scheme "ayu"
 	use 'ayu-theme/ayu-vim'
-
+	-- Color scheme "oak"
+	use 'vigoux/oak'
+	-- Color scheme "melange"
+	use "savq/melange"
+	-- Color scheme "kimbox"
+	--use "/kimbox"
 end)

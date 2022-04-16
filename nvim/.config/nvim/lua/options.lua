@@ -22,8 +22,8 @@ o.incsearch = true							-- Update search results as you type
 o.ignorecase = false						-- Don't ignore case in search patterns
 o.scrolloff = 8								-- Start scrolling 8 lines away
 o.smartindent = true 						-- Makes indenting smart
-o.smarttab = true							
--- o.smartcase = true				
+o.smarttab = true
+-- o.smartcase = true
 o.termguicolors = true						-- Enables 24-bit RGB color
 o.wildmode ='longest,list,full'				-- Complete till longest common
 											-- string, list all matches,
@@ -35,7 +35,7 @@ o.mouse = 'a'								-- Enable mouse
 o.swapfile = false							-- Disable swapfile
 o.backup = false							-- disable backup
 o.undodir = homedir .. "/.cache/nvim/undodir/"
-o.shell = '/bin/zsh'						-- Set default shell
+o.shell = os.getenv("SHELL") or "pwsh"
 o.showtabline = 2 							-- Always show buffer tabs
 o.splitbelow = true 						-- Hsplit below
 o.splitright = true							-- Vsplit to the right
@@ -51,10 +51,11 @@ wo.cursorline = true						-- Highlight line cursor is on
 --===================Buffer Options===================
 
 bo.tabstop = 4								-- Number of spaces a tab counts for
+bo.shiftwidth = 4							-- Number of spaces an auto indent tab counts for
 bo.syntax = 'on'							-- Enable syntax highlighting
 bo.undofile = true							-- Use undo file
 -- bo.iskeyword = bo.iskeyword .. ',-'
 -- bo.shortmess = bo.shortmess .. ',c'
 -- for lack of a cleaner way to add to a list
-vim.cmd('set iskeyword+=-') 				-- Count '-' as a word
+--vim.cmd('set iskeyword+=-') 				-- Count '-' as a word
 vim.cmd('set shortmess+=c') 				-- Don't give |ins-completion-menu| messages.
