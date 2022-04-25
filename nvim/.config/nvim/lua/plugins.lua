@@ -5,7 +5,7 @@ return require('packer').startup(function()
 	use 'lewis6991/impatient.nvim'
 ----------------- Related to Windows -----------------------
 	-- Maximizer
-	use 'szw/vim-maximizer'
+--	use 'szw/vim-maximizer'
 
 	-- NVim Tree
 	use {
@@ -18,24 +18,15 @@ return require('packer').startup(function()
 		'nvim-telescope/telescope.nvim',
 		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
 	}
-
+	-- todo-comments
+	use { "folke/todo-comments.nvim",
+	  requires = "nvim-lua/plenary.nvim", config = function() require("todo-comments").setup{} end
+	}
+	-- Comment
+	use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]] }
 	-- Dashboard
 	use 'glepnir/dashboard-nvim'
 
-
-	-- Shade inactive windows
-	-- use {
-		-- 'sunjon/shade.nvim',
-		-- config = function() require'shade'.setup({
-			-- overlay_opacity = 50,
-			-- opacity_step = 1,
-			-- keys = {
-				-- brightness_up    = '<C-Up>',
-				-- brightness_down  = '<C-Down>',
-				-- toggle           = '<Leader>s',
-			-- }
-		-- }) end
-	-- }
 ----------------- Related to Buffers -----------------------
 	-- Highlight Search Lens
 	use {'kevinhwang91/nvim-hlslens'}
@@ -47,22 +38,22 @@ return require('packer').startup(function()
 	use { 'mg979/vim-visual-multi', branch = 'master' }
 
 	-- Smooth Scroll
-	use {	'karb94/neoscroll.nvim',
-			config = function() require('neoscroll').setup({
-				-- All these keys will be mapped to their corresponding default scrolling animation
-				mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-							'<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-				hide_cursor = true,          -- Hide cursor while scrolling
-				stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-				use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-				respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-				cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-				easing_function = nil,       -- Default easing function
-				pre_hook = nil,              -- Function to run before the scrolling animation starts
-				post_hook = nil,             -- Function to run after the scrolling animation ends
-				performance_mode = true,    -- Disable "Performance Mode" on all buffers.
-			}) end
-	}
+	-- use {	'karb94/neoscroll.nvim',
+	-- 		config = function() require('neoscroll').setup({
+	-- 			-- All these keys will be mapped to their corresponding default scrolling animation
+	-- 			mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+	-- 						'<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+	-- 			hide_cursor = true,          -- Hide cursor while scrolling
+	-- 			stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+	-- 			use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
+	-- 			respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+	-- 			cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+	-- 			easing_function = nil,       -- Default easing function
+	-- 			pre_hook = nil,              -- Function to run before the scrolling animation starts
+	-- 			post_hook = nil,             -- Function to run after the scrolling animation ends
+	-- 			performance_mode = true,    -- Disable "Performance Mode" on all buffers.
+	-- 		}) end
+	-- }
 
 	-- nvim buffers/tabs line
 	use {'akinsho/nvim-bufferline.lua', config = [[require("plugins/bufferline")]], requires = 'kyazdani42/nvim-web-devicons'}
@@ -199,8 +190,6 @@ return require('packer').startup(function()
 	use 'itchyny/landscape.vim'
 	-- Color scheme "vim-afterglow"
 	use 'danilo-augusto/vim-afterglow'
-	-- Color scheme "lampaces-demon-vim"
-	use 'epmor/lampaces-demon-vim'
 	-- Color scheme "vim-colorscheme-primary"
 	use 'google/vim-colorscheme-primary'
 	-- Color scheme "tender"
