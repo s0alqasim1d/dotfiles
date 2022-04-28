@@ -6,6 +6,13 @@ local homedir = os.getenv('HOME') or os.getenv('USERPROFILE')
 if homedir == nil then
 	homedir = 'c:/users/s.alqasim'
 end
+--=================== Functions ======================
+-- function set_options(locality, options)
+-- 		for key, value in pairs(options) do
+-- 				locality[key] = value
+-- 		end
+-- end
+-- --
 --===================Global Options===================
 o.autoindent = true 						-- Auto indent
 o.cmdheight = 1 							-- Space for cmd messages
@@ -48,6 +55,8 @@ wo.relativenumber = true					-- Give relative numbers to lines
 wo.cursorline = true						-- Highlight line cursor is on
 --wo.cursorcolumn = true
 
+--NOTE: Buffer Options have to be applied to every new buffer
+--TODO: Will move the buffer options to a new file since
 --===================Buffer Options===================
 
 bo.tabstop = 4								-- Number of spaces a tab counts for

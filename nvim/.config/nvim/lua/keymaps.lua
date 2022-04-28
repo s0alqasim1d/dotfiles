@@ -2,7 +2,7 @@ local hasMap, map = pcall(require, 'cartographer')
 if hasMap then
 	-- ================================ NORMAL ====================================
 	-- Split navigation
-	nmap_silent = map.n.silent
+	local nmap_silent = map.n.silent
 
 	nmap_silent['<M-h>'] = '<C-w>h'
 	nmap_silent['<M-j>'] = '<C-w>j'
@@ -15,7 +15,7 @@ if hasMap then
 	-- map('n', '<M-l>', '<C-w>l', {silent = true})
 
 	-- Buffer navigation
-	nnoremap_silent = nmap_silent.nore
+	local nnoremap_silent = nmap_silent.nore
 
 	nnoremap_silent['<C-T>'] = ':<CR>'
 	nnoremap_silent['<M->>'] = ':BufferLineCycleNext<CR>'
@@ -68,7 +68,7 @@ if hasMap then
 	-- map('n', '<Up>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>', {noremap = true, silent = true})
 
 	-- Center screen after search forward/backward
-	nnoremap = map.n.nore
+	local nnoremap = map.n.nore
 	nnoremap['n'] = 'nzzzv'
 	nnoremap['N'] = 'Nzzzv'
 
@@ -76,15 +76,16 @@ if hasMap then
 
 	-- ================================ VISUAL ====================================
 	-- Indenting
-	vnoremap_silent = map.v.nore.silent
+	local vnoremap_silent = map.v.nore.silent
 	vnoremap_silent['<'] = '<gv'
 	vnoremap_silent['>'] = '<gv'
 
 	-- map('v', '<', '<gv', {noremap = true, silent = true})
 	-- map('v', '>', '>gv', {noremap = true, silent = true})
 
-	-- Move line
+	-- Move line Up and Down
 	vnoremap_silent['K'] = ':m \'>-2<CR>gv-gv'
+	vnoremap_silent['J'] = ':m \'>+1<CR>gv-gv'
 	-- map('v', 'K', ':m \'>-2<CR>gv-gv', {noremap = true, silent = true})
 
 	-- ================================ UNMAP =====================================

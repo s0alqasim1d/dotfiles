@@ -232,4 +232,6 @@ return require('packer').startup(function()
 	use "savq/melange"
 	-- Color scheme "kimbox"
 	--use "/kimbox"
+	-- gruvbox-material
+	use "sainnhe/gruvbox-material"
 end)
