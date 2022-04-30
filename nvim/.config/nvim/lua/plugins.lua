@@ -6,7 +6,8 @@ return require('packer').startup(function()
 ----------------- Related to Windows -----------------------
 	-- Maximizer
 --	use 'szw/vim-maximizer'
-
+	-- Notify notification engine
+	use { "rcarriga/nvim-notify", config = [[require("plugins.notify")]]}
 	-- NVim Tree
 	use {
 		'kyazdani42/nvim-tree.lua',
@@ -69,12 +70,9 @@ return require('packer').startup(function()
 
 	-- Custom Status line
 	use {
-		'glepnir/galaxyline.nvim',
-		branch = 'main',
-		-- your statusline
-		config = [[require'plugins/statusline']], --don't have config yet
-		-- some optional icons
-		requires = {'kyazdani42/nvim-web-devicons', opt = true}
+		'nvim-lualine/lualine.nvim',
+		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+		config = [[require'plugins/statusline']],
 	}
 
 	-- autoclose & autorename tags closely related to nvim-treesitter || Look at later
@@ -155,7 +153,7 @@ return require('packer').startup(function()
 	-- UltTest
 	-- use { 'rcarriga/vim-ultest', requires = {'vim-test/vim-test'}, run = ':UpdateRemotePlugins' }
 
-
+		use { 'tami5/lspsaga.nvim', config = [[require("plugins.lspsaga")]] }
 	-- Neovim LSPContainers
 	use { 'lspcontainers/lspcontainers.nvim',
 		requires = {

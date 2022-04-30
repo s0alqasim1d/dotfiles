@@ -45,6 +45,7 @@ if hasMap then
 	nnoremap_silent['K'] = ':Lspsaga hover_doc<CR>'
 	nnoremap_silent['gd'] = '<cmd>lua vim.lsp.buf.definition()<CR>'
 	nnoremap_silent['gD'] = '<cmd>lua vim.lsp.buf.declaration()<CR>'
+	-- nnoremap_silent['gp'] = '<cmd>lua vim.lsp.buf.preview()<CR>'
 	nnoremap_silent['gr'] = '<cmd>lua vim.lsp.buf.references()<CR>'
 	nnoremap_silent['gi'] = '<cmd>lua vim.lsp.buf.implementation()<CR>'
 	nnoremap_silent['<C-p>'] = ':Lspsaga diagnostic_jump_prev<CR>'
@@ -64,7 +65,7 @@ if hasMap then
 	-- map('n', '<Down>','<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<CR>', {noremap = true, silent = true})
 
 	-- scroll up hover doc
-	nnoremap_silent['<Up'] = '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'
+	nnoremap_silent['<Up>'] = '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'
 	-- map('n', '<Up>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>', {noremap = true, silent = true})
 
 	-- Center screen after search forward/backward
