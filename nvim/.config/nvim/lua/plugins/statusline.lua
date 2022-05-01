@@ -1,5 +1,5 @@
 local line = require("lualine")
-
+local gps = require("nvim-gps")
 line.setup({
   options = {
     theme = "auto",
@@ -11,6 +11,7 @@ line.setup({
     lualine_c = {
       { "filename", path = 1 },
       { "diagnostics", sources = { "nvim_lsp" } },
+	  { gps.get_location, cond = gps.is_available }
     },
     lualine_x = {
       require("lsp-status").status,

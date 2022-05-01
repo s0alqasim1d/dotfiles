@@ -88,7 +88,13 @@ return require('packer').startup(function()
 		run = ':TSUpdate',
 		config = [[require'plugins/treesitter']]
 	}
-
+	-- nvim-gps
+	use {
+		"SmiteshP/nvim-gps",
+		requires = "nvim-treesitter/nvim-treesitter",
+		config = [[require("nvim-gps").setup()]],
+	}
+	-- indent line
 	use { 'lukas-reineke/indent-blankline.nvim',
 		requires = {
 			'nvim-treesitter/nvim-treesitter'
@@ -98,9 +104,11 @@ return require('packer').startup(function()
 			--vim.opt.listchars:append("space:⋅")
 			vim.opt.listchars:append("eol:↴")
 			require("indent_blankline").setup {
+					buftype_exclude = { "terminal" },
+					filetype_exclude = { "dashboard" },
     				space_char_blankline = " ",
     				show_current_context = true,
-    				show_current_context_start = true,
+					show_current_context_start = true,
 			}
 		end
 	}
