@@ -199,7 +199,8 @@ return require("packer").startup(function()
 		"AckslD/nvim-whichkey-setup.lua",
 		requires = {"liuchengxu/vim-which-key"},
 	}
-
+---------------Misc-------------------------------------------
+	-- use {'andweeb/presence.nvim', config = [[require("plugins.presence")]]}
 ----------------- Related to Colors/Themes -----------------------
 	-- Color scheme "fromthehell"
 	use "szorfein/fromthehell.vim"

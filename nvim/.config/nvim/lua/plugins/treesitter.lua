@@ -5,6 +5,7 @@ require'nvim-treesitter.configs'.setup {
 	  "c",
 	  "comment",
 	  "cpp",
+	  "c_sharp",
 	  "dot",
 	  "dockerfile",
 	  "go",
