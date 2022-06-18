@@ -157,7 +157,8 @@ return require("packer").startup(function()
 		} end
 
 	}
-
+	-- Glow MD veiwer
+	use {"ellisonleao/glow.nvim", branch = 'main'}
 	-- UltTest
 	-- use { "rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins" }
 
