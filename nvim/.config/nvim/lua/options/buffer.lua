@@ -5,6 +5,7 @@ bo.shiftwidth = 4							-- Number of spaces an auto indent tab counts for
 bo.syntax = 'on'							-- Enable syntax highlighting
 bo.undofile = true							-- Use undo file
 bo.fileformat = 'unix'
+bo.fileformats = 'unix,dos'
 -- bo.iskeyword = bo.iskeyword .. ',-'
 -- bo.shortmess = bo.shortmess .. ',c'
 -- for lack of a cleaner way to add to a list
