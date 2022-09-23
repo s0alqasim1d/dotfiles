@@ -17,17 +17,15 @@ local servers = {
 			local cutils = require("plugins.cutils")
 			local volumes = {
 				v1 = "--volume="..cutils.Dos2UnixSafePath(root_dir).."/:"..workdir,
-				v2 = "--volume="..cutils.Dos2UnixSafePath(require("os").getenv("GOPATH"))..":".."/go:ro",-- NOTE: We want to mount our gopath as ro
+				v2 = "--volume="..cutils.Dos2UnixSafePath(require("os").getenv("GOPATH"))..":".."/go:z",-- NOTE: We want to mount our local gopath as ro
 			}
-			-- print("Successfully applied gopls custom command")
-			-- print(volumes.v1, volumes.v2)
 			return {
 				runtime,
 				"container",
 				"run",
 				"--rm",
 				"-i",
-				"-e GOPATH=/go:"..gopath,
+				"-e GOPATH=/go:"..gopath,--NOTE: We add the mounted local GOPATH to the GOPATH variable on container
 				"--network="..network,
 				"-w"..workdir,
 				volumes.v1,
@@ -38,7 +36,8 @@ local servers = {
 			}
 		end,
 		image = "lspcontainers/gopls",
-		network = "bridge",
+		-- network = "bridge",
+		-- root_dir = util.root_pattern("go.work", "go.mod", ".git", vim.fn.getcwd()), --, ),
 		-- root_dir = vim.fn.getcwd(),
 		--ISSUE: What is on_new_config?
 		default_config = {
@@ -52,13 +51,13 @@ local servers = {
 		},
 		settings = {
 		  gopls = {
+			verboseOutput = true,
 			analyses = {
 			  unusedparams = true,
 			},
 			staticcheck = true,
 		  },
 		},
-		leave2lspconfig = false,
 	},
 	html = {},
 	jsonls = {},
@@ -92,7 +91,6 @@ local servers = {
 	},
 	-- Custom LSP
 	nginx_ls = {
-		leave2lspconfig = true,
 		image = "s0alqasim1d/nginx-ls",
 		default_config = {
 			cmd = "/venv/bin/nginx-language-server -vv",
@@ -107,17 +105,17 @@ for lsp, lsp_opts in pairs(servers) do
 	-- print(lsp)
 	-- print(lsp, lsp_opts.leave2lspconfig and 1 or 2)
 	-- print(lsp, lsp_opts.default_config and 1 or 2)
-	if not lspcontainers.supported_languages[lsp] then
-		-- print(lsp .. " has config issue")
-		configs[lsp] = { default_config = lsp_opts.default_config}
-		lspcontainers.supported_languages[lsp] = lsp_opts.cmd
-	end
+	-- if not lspcontainers.supported_languages[lsp] then
+	-- 	-- print(lsp .. " has config issue")
+	-- 	configs[lsp] = { default_config = lsp_opts.default_config}
+	-- 	lspcontainers.supported_languages[lsp] = lsp_opts.cmd
+	-- end
 	lspconfig[lsp].setup {
 		before_init = function(params)
 			params.processId = vim.NIL
 		end,
 		cmd = lspcontainers.command(lsp, lsp_opts),
-		root_dir = configs[lsp].default_config or lsp_opts.default_config and lsp_opts.default_config.root_dir or util.root_pattern(".git", vim.fn.getcwd()),
+		root_dir = lsp_opts.default_config and lsp_opts.default_config.root_dir or configs[lsp].default_config or util.root_pattern(".git", vim.fn.getcwd()),
 		on_attach = on_attach,
 		flags = {},
 		capabilities = capabilities,

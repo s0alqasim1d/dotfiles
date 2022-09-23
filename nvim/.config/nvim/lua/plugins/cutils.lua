@@ -8,6 +8,13 @@ Dos2UnixSafePath = function(workdir)
   return workdir
 end
 
+DosSafePath = function(workdir)
+  -- workdir = string.gsub(workdir, "\\", "\\\\")
+  workdir = string.gsub(workdir, "\\", "/")
+  return workdir
+end
+
 return {
 	Dos2UnixSafePath = Dos2UnixSafePath,
+	DosSafePath = DosSafePath,
 }

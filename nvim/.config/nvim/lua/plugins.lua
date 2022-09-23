@@ -30,7 +30,7 @@ return require("packer").startup(function()
 
 ----------------- Related to Buffers -----------------------
 	-- Highlight Search Lens
-	use {"kevinhwang91/nvim-hlslens"}
+	use "kevinhwang91/nvim-hlslens"
 
 	-- git messenger
 	use "rhysd/git-messenger.vim"
@@ -57,15 +57,17 @@ return require("packer").startup(function()
 	-- }
 
 	-- nvim buffers/tabs line
-	use {"akinsho/nvim-bufferline.lua", config = [[require("plugins/bufferline")]], requires = "kyazdani42/nvim-web-devicons"}
+	use {
+		"akinsho/nvim-bufferline.lua",
+		tag = "v2.*",
+		config = [[require("plugins/bufferline")]],
+		requires = "kyazdani42/nvim-web-devicons"
+	}
 
 	-- Git Blame/Signs
 	use {
 		"lewis6991/gitsigns.nvim",
-		requires = {
-			"nvim-lua/plenary.nvim"
-		},
-		config = [[require("gitsigns").setup()]]
+		config = function() require("plugins/gitsigns") end
 	}
 
 	-- Custom Status line
