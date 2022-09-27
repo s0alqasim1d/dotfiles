@@ -33,8 +33,14 @@ o.mouse = 'a'								-- Enable mouse
 o.swapfile = false							-- Disable swapfile
 o.backup = false							-- disable backup
 o.undodir = homedir .. "/.cache/nvim/undodir/"
-o.shell = os.getenv("SHELL") or "pwsh"
+-- o.shell = os.getenv("SHELL") or "pwsh"
+o.shell = 'pwsh'
+o.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+o.shellredir = '-RedirectStandardOutput %s -NoNewWindow -Wait'
+o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+o.shellquote = ''
+o.shellxquote = ''
 o.showtabline = 2 							-- Always show buffer tabs
 o.splitbelow = true 						-- Hsplit below
 o.splitright = true							-- Vsplit to the right
-vim.o.laststatus = 3						-- Show one statusline always
+o.laststatus = 3							-- Show one statusline always
