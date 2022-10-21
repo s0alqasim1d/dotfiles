@@ -1,0 +1,492 @@
+--WARN: n, v, i, t = mode names
+--ERROR: A lot of mappings are commented out because they already exist, so it is a waste of time to override them
+-- local function termcodes(str)
+-- 	return vim.api.nvim_replace_termcodes(str, true, true, true)
+-- end
+
+--NOTE: This is the structure to be followed.
+-- M.<whatever_is_the_module_name> = {
+--  plugin = <true | false>, -- this doesn't apply to M.general
+--
+--  <n | v | i | t > = { mode to map keys for is the table name
+--    --key mappings
+--    ["<keystroke_to_map>"] = {
+--      <"keystroke_to_invoke" | function implementation to invoke>,
+--      "Description",
+--      opts = {silent = true|false, etc...},
+--    },
+--  },
+-- }
+local M = {}
+
+M.general = {
+	-- i = { --NOTE: INSERT Mode
+		--NOTE: go to beginning & end
+		-- ["<C-b>"] = {"<ESC>^i", "Cursor to beginning of the line"},
+		-- ["<C-e>"] = {"<End>", "Cursor to end of the line"},
+
+		--NOTE: Navigating in insert mode
+		-- ["<C-h>"] = {"<Left>", "Move Cursor Left"},
+		-- ["<C-l>"] = {"<Right>", "Move Cursor Right"},
+		-- ["<C-j>"] = {"<Down>", "Move Cursor Down"},
+		-- ["<C-k>"] = {"<Up>", "Move Cursor Up"},
+	-- },
+	n = { --NOTE: NORMAL Mode
+		-- ["<ESC>"] = {"<cmd> noh <CR>", "No Highlight"},
+
+		--NOTE: Switch between windows
+		-- ["<C-h>"] = {"<C-w>h", "Move to window on the left"},
+		-- ["<C-l>"] = {"<C-w>l", "Move to window on the right"},
+		-- ["<C-j>"] = {"<C-w>j", "Move to window on the bottom"},
+		-- ["<C-k>"] = {"<C-w>k", "Move to window on the top"},
+
+		--NOTE: Resize active window
+		["<C-Up>"] = {':resize -2<CR>'},
+		["<C-Down>"] = {':resize +2<CR>'},
+		["<C-Right>"] = {':vert resize -2<CR>'},
+		["<C-Left>"] = {':vert resize +2<CR>'},
+
+		--NOTE: Save
+		-- ["<C-s>"] = {"<cmd> w <CR>", "Save buffer to file"},
+
+		--NOTE: Copy all
+		-- ["<C-C>"] = {"<cmd> %y+ <CR>", "Copy entire buffer"},
+
+		--NOTE: Toggle line numbers
+		--NOTE: '!' for boolean options means to toggle or to set to the opposite of the current value
+		-- ["<leader>n"] = {"<cmd> set nu! <CR>", "[Un]Toggle line numbers"},
+		--NOTE: Toggle relative line numbers
+		-- ["<leader>rn"] = {"<cmd> set rnu! <CR>", "[Un]Toggle relative line numbers"},
+
+		--NOTE: Allow moving the cursor through wrapped lines with j, k, <Up> & <Down>
+		--NOTE: http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
+		--NOTE: empty mode is same as using <cmd> :map
+		-- ["j"] = {'v:count || mode(1)[0:1] == "no" ? "j": "gj"', opts = {expr = true} },
+		-- ["k"] = {'v:count || mode(1)[0:1] == "no" ? "k": "gk"', opts = {expr = true} },
+		-- ["<Down>"] = {'v:count || mode(1)[0:1] == "no" ? "j": "gj"', opts = {expr = true} },
+		-- ["<Up>"] = {'v:count || mode(1)[0:1] == "no" ? "k": "gk"', opts = {expr = true} },
+
+		--NOTE: New Buffer
+		-- ["<leader>b"] = {"<cmd> enew <CR>", "Open new buffer"},
+
+		--NOTE: Cycle between buffer tabs
+		-- ["<TAB>"] = {'<cmd> BufferLineCycleNext<CR>'},
+		-- ["<S-TAB>"] = {'<cmd> BufferLineCyclePrev<CR>'},
+
+		--NOTE: Center screen after seeking next search result or backtracking
+		['n'] = {'nzzzv'},
+		['N'] = {'Nzzzv'},
+	},
+	-- t = { --NOTE: TERMINAL Mode -- this doesn't apply to M.general
+		-- ["<C-x>"] = {termcodes "<C-\\><C-N>", "Escape terminal mode"},
+	-- },
+	v = { --NOTE: VISUAL MODE
+		--NOTE: Allow moving the cursor through wrapped lines with j, k, <Up> & <Down>
+		-- ["<Up>"] = {'v:count || mode(1)[0:1] == "no" ? "k": "gk"', opts = {expr = true} },
+		-- ["<Down>"] = {'v:count || mode(1)[0:1] == "no" ? "j": "gj"', opts = {expr = true} },
+		--NOTE: Move highlighted lines upwards or downwards
+		['K'] = {':m \'>-2<CR>gv-gv', opts = {silent = true}},
+		['J'] = {':m \'>+1<CR>gv-gv', opts = {silent = true}},
+		--NOTE: Indent inwards or outwards
+		['<'] = {'<gv', opts = {silent = true}},
+		['>'] = {'>gv', opts = {silent = true}},
+	},
+	-- x = {
+		-- ["j"] = {'v:count || mode(1)[0:1] == "no" ? "j": "gj"', opts = {expr = true} },
+		-- ["k"] = {'v:count || mode(1)[0:1] == "no" ? "k": "gk"', opts = {expr = true} },
+		--NOTE: Don't copy the replaced text after pasting in visual mode
+		--NOTE: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
+		-- ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', opts = { silent = true } },
+	-- },
+}
+
+-- M.tabufline = {
+  -- plugin = true,
+  --
+  -- n = {
+  --   -- cycle through buffers
+  --   ["<TAB>"] = {
+  --     function()
+  --       require("nvchad_ui.tabufline").tabuflineNext()
+  --     end,
+  --     "goto next buffer",
+  --   },
+  --
+  --   ["<S-Tab>"] = {
+  --     function()
+  --       require("nvchad_ui.tabufline").tabuflinePrev()
+  --     end,
+  --     "goto prev buffer",
+  --   },
+  --
+  --   -- pick buffers via numbers
+  --   ["<Bslash>"] = { "<cmd> TbufPick <CR>", "Pick buffer" },
+  --
+  --   -- close buffer + hide terminal buffer
+  --   ["<leader>x"] = {
+  --     function()
+  --       require("nvchad_ui.tabufline").close_buffer()
+  --     end,
+  --     "close buffer",
+  --   },
+  -- },
+-- }
+
+-- M.comment = {
+	-- plugin = true,
+	--
+	-- --NOTE: Toggle comment for normal and visual modes
+	-- n = {
+	-- 	['<leader>/'] = {
+	-- 		function ()
+	-- 			require("Comment.api").toggle.linewise.current()
+	-- 		end,
+	-- 		"Toggle line comment",
+	-- 	},
+	-- },
+	-- v = {
+	-- 	['<leader>/'] = {
+	-- 		"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+	-- 		"Toggle line comment",
+	-- 	},
+	-- },
+-- }
+
+-- M.lspconfig = {
+	-- plugin = true,
+	--
+	-- n = {
+	-- 	["gD"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.declaration()
+	-- 		end,
+	-- 		"Go to declaration",
+	-- 	},
+	--
+	-- 	["gd"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.definition()
+	-- 		end,
+	-- 		"Go to definition",
+	-- 	},
+	--
+	-- 	["K"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.hover()
+	-- 		end,
+	-- 		"Display hovering window",
+	-- 	},
+	--
+	-- 	["gi"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.implementation()
+	-- 		end,
+	-- 		"Go to implementation",
+	-- 	},
+	--
+	-- 	["<leader>ls"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.signature_help()
+	-- 		end,
+	-- 		"View signature help",
+	-- 	},
+	--
+	-- 	["<leader>D"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.type_definition()
+	-- 		end,
+	-- 		"Show type definition"
+	-- 	},
+	--
+	-- 	["<leader>ra"] = {
+	-- 		function ()
+	-- 			require("nvchad_ui.renamer").open()
+	-- 		end,
+	-- 		"Rename with lsp"
+	-- 	},
+	--
+	-- 	["<leader>ca"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.code_action()
+	-- 		end,
+	-- 		"Show LSP code action",
+	-- 	},
+	--
+	-- 	["gr"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.references()
+	-- 		end,
+	-- 		"Go to references"
+	-- 	},
+	--
+	-- 	["<leader>f"] = {
+	-- 		function ()
+	-- 			vim.diagnostic.open_float()
+	-- 		end,
+	-- 		"Open floating diagnositc window"
+	-- 	},
+	--
+	-- 	["[d"] = {
+	-- 		function ()
+	-- 			vim.diagnostic.goto_prev()
+	-- 		end,
+	-- 		"Go to previous diagnostic"
+	-- 	},
+	--
+	-- 	["d]"] = {
+	-- 		function ()
+	-- 			vim.diagnostic.goto_next()
+	-- 		end,
+	-- 		"Go to next diagnostic",
+	-- 	},
+	--
+	-- 	["<leader>q"] = {
+	-- 		function ()
+	-- 			vim.diagnostic.setloclist()
+	-- 		end,
+	-- 		"Add buffer diagnostics to the location list",
+	-- 	},
+	--
+	-- 	["<leader>fm"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.format {async = true}
+	-- 		end,
+	-- 		"Format buffer using attached language server client asynchronously",
+	-- 	},
+	--
+	-- 	["<leader>wa"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.add_workspace_folder()
+	-- 		end,
+	-- 		"Add the folder at path to the workspace folders"
+	-- 	},
+	--
+	-- 	["<leader>wr"] = {
+	-- 		function ()
+	-- 			vim.lsp.buf.remove_workspace_folder()
+	-- 		end,
+	-- 		"Remove the folder at path from the workspace folders"
+	-- 	},
+	--
+	-- 	["<leader>wl"] = {
+	-- 		function ()
+	-- 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	-- 		end,
+	-- 	},
+	-- },
+-- }
+
+-- M.nvimtree = {
+	-- plugin = true,
+	--
+	-- n = {
+	-- 	--NOTE: Toggle Nvim Tree
+	-- 	["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle Nvim Tree"},
+	-- 	--NOTE: Focus (make active) Nvim Tree
+	-- 	["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "Focus Nvim Tree"},
+	-- },
+-- }
+
+-- M.telescope = {
+	-- plugin = true,
+	--
+	-- n = {
+	-- 	--NOTE: Fuzzy Finding
+	-- 	["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files"},
+	-- 	["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all"},
+	-- 	["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "Find word (Live grep)"},
+	-- 	["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "Find buffers"},
+	-- 	["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Find help"},
+	-- 	["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "Find recently opened files"},
+	-- 	["<leader>tk"] = { "<cmd> Telescope keymaps <CR>", "Show telescope keybindings"},
+	--
+	-- 	--NOTE: git
+	-- 	["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "Show git commits"},
+	-- 	["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "Show git status"},
+	--
+	-- 	--NOTE: Pick hidden term
+	-- 	["<leader>pt"] = { "<cmd> Telescope terms <CR>", "Pick a hidden term"},
+	--
+	-- 	--NOTE: Theme selector
+	-- 	["<leader>th"] = { "<cmd> Telescope colorscheme <CR>", "Pick themes -- should make it work with colorshemes instead of nvchad_themes"},
+	-- },
+-- }
+
+-- M.nvterm = {
+	-- plugin = true,
+	--
+	-- t = {
+	-- 	["<A-i>"] = {
+	-- 		function ()
+	-- 			require("nvterm.terminal").toggle "float"
+	-- 		end,
+	-- 		"Toggle floating terminal",
+	-- 	},
+	--
+	-- 	["<A-h>"] = {
+	-- 		function ()
+	-- 			require("nvterm.terminal").toggle "horizontal"
+	-- 		end,
+	-- 		"Toggle horizontal terminal",
+	-- 	},
+	--
+	-- 	["<A-v>"] = {
+	-- 		function ()
+	-- 			require("nvterm.terminal").toggle "vertical"
+	-- 		end,
+	-- 		"Toggle vertical terminal",
+	-- 	},
+	-- },
+	--
+	-- n = {
+	-- 	["<A-i>"] = {
+	-- 		function ()
+	-- 			require("nvterm.terminal").toggle "float"
+	-- 		end,
+	-- 		"Toggle floating terminal",
+	-- 	},
+	--
+	-- 	["<A-h>"] = {
+	-- 		function ()
+	-- 			require("nvterm.terminal").toggle "horizontal"
+	-- 		end,
+	-- 		"Toggle horizontal terminal",
+	-- 	},
+	--
+	-- 	["<A-v>"] = {
+	-- 		function ()
+	-- 			require("nvterm.terminal").toggle "vertical"
+	-- 		end,
+	-- 		"Toggle vertical terminal",
+	-- 	},
+	--
+	-- 	--NOTE: New terminal
+	-- 	["<leader>h"] = {
+	-- 		function ()
+	-- 			require("nvterm.terminal").new "horizontal"
+	-- 		end,
+	-- 		"New horizontal terminal",
+	-- 	},
+	--
+	-- 	["<leader>v"] = {
+	-- 		function ()
+	-- 			require("nvterm.terminal").new "vertical"
+	-- 		end,
+	-- 		"New vertical terminal",
+	-- 	},
+	-- },
+-- }
+
+-- M.whichkey = {
+	-- plugin = true,
+	--
+	-- n = {
+	-- 	["<leader>wK"] = {
+	-- 		function ()
+	-- 			vim.cmd "WhichKey"
+	-- 		end,
+	-- 		"which-key all keymaps"
+	-- 	},
+	-- 	["<leader>wk"] = {
+	-- 		function ()
+	-- 			local input = vim.fn.input "WhichKey: "
+	-- 			vim.cmd("WhichKey " .. input)
+	-- 		end,
+	-- 		"which-key query lookup"
+	-- 	},
+	-- },
+-- }
+
+-- M.blankline = {
+-- 	plugin = true,
+--
+-- 	n = {
+-- 		["<leader>cc"] = {
+-- 			function ()
+-- 				local ok, start = require("indent_blankline.utils").get_current_context(
+-- 					vim.g.indent_blankline_context_patterns,
+-- 					vim.g.indent_blankline_use_treesitter_scope
+-- 				)
+-- 				if ok then
+-- 					vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), {start, 0})
+-- 					vim.cmd [[normal! _]]
+-- 				end
+-- 			end,
+-- 			"Jump to current_context",
+-- 		},
+-- 	},
+-- }
+
+-- M.gitsigns = {
+-- 	plugin = true,
+--
+-- 	n = {
+-- 		--NOTE: Navigation through hunks
+-- 		--NOTE: Next hunk
+-- 		["]c"] = {
+-- 			function ()
+-- 				if vim.wo.diff then
+-- 					return "]c"
+-- 				end
+-- 				vim.schedule(function ()
+-- 					require("gitsigns").next_hunk()
+-- 				end)
+-- 				return "<Ignore>"
+-- 			end,
+-- 			"Jump to next hunk",
+-- 			opts = {expr = true },
+-- 		},
+--
+-- 		--NOTE: Previous hunk
+-- 		["[c"] = {
+-- 			function ()
+-- 				if vim.wo.diff then
+-- 					return "[c"
+-- 				end
+-- 				vim.schedule(function ()
+-- 					require("gitsigns").prev_hunk()
+-- 				end)
+-- 				return "<Ignore>"
+-- 			end,
+-- 			"Jump to previous hunk",
+-- 			opts = {expr = true },
+-- 		},
+--
+-- 		--NOTE: Hunk Actions
+-- 		--NOTE: Reset Hunk
+-- 		["<leader>rh"] = {
+-- 			function ()
+-- 				require("gitsigns").reset_hunk()
+-- 			end,
+-- 			"Reset hunk",
+-- 		},
+--
+-- 		--NOTE: Preview hunk
+-- 		["<leader>ph"] = {
+-- 			function ()
+-- 				require("gitsigns").preview_hunk()
+-- 			end,
+-- 			"Preview hunk",
+-- 		},
+--
+-- 		--NOTE: Get blame line
+-- 		["<leader>gb"] = {
+-- 			function ()
+-- 				require("gitsigns").blame_line()
+-- 			end,
+-- 			"Get blame line",
+-- 		},
+--
+-- 		--NOTE: Toggle deleted lines
+-- 		["<leader>td"] = {
+-- 			function ()
+-- 				require("gitsigns").toggle_deleted()
+-- 			end,
+-- 			"Toggle deleted lines",
+-- 		},
+-- 	},
+-- }
+
+
+
+return M

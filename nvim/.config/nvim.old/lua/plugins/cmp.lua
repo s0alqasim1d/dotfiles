@@ -1,6 +1,8 @@
 -- luasnip setup
 local luasnip = require 'luasnip'
 
+-- autopairs-setup
+local autopairs = require 'nvim-autopairs.completion.cmp'
 -- nvim-cmp setup
 local cmp = require 'cmp'
 cmp.setup {
@@ -44,3 +46,7 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+cmp.event:on(
+	'confirm_done',
+	autopairs.on_confirm_done()
+)

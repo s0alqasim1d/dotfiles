@@ -1,27 +1,39 @@
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = {
-	  "bash",
-	  "c",
-	  "comment",
-	  "cpp",
-	  "c_sharp",
-	  "dot",
-	  "dockerfile",
-	  "go",
-	  "javascript",
-	  "json",
-	  "latex",
-	  "lua",
-	  "python",
-	  "rust",
-	  "toml",
-	  "typescript",
-	  "yaml"
-},
+	ensure_installed = {
+		"bash",
+		"c",
+		"comment",
+		"cpp",
+		"c_sharp",
+		"dot",
+		"dockerfile",
+		"go",
+		"javascript",
+		"json",
+		"latex",
+		"lua",
+		"python",
+		"rust",
+		"toml",
+		"typescript",
+		"yaml"
+	},
 
+	refactor = {
+		highlight_definitions = {
+			enable = true,
+			--NOTE: Set to false if you have an update time of ~100
+			clear_on_cursor_move = true,
+		},
+	},
+
+	autotag = {
+		enable = true,
+	},
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
+  -- auto_install = true,
 
   -- List of parsers to ignore installing (for "all")
   -- ignore_install = { },

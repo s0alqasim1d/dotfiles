@@ -1,13 +1,44 @@
-return require("packer").startup(function()
+--NOTE: Should rename this file to plugins/init.lua
+local plugins = {
+
+	["nvim-lua/plenary"] = { module = "plenary" },
+
+	-- Implements a chunk cache to speed up neovim startup
+	["lewis6991/impatient.nvim"] = {},
+
+	["wbthomason/packer.nvim"] = {
+		cmd = require("core.lazy_load").packer_cmds,
+		config = [[require "plugins"]],
+	},
+
+	["kyazdani42/nvim-web-devicons"] = {
+		module = "nvim-web-devicons",
+	},
+
+	["lukas-reineke/indent-blankline.nvim"] = {
+		opt = true,
+
+	},
+}
+
+
+return require("packer").startup({function()
 	-- Packer can manage itself
 	use "wbthomason/packer.nvim"
-	-- Implements a chunk cache to speed up neovim startup
-	use "lewis6991/impatient.nvim"
+	use "dstein64/vim-startuptime"
 ----------------- Related to Windows -----------------------
-	-- Maximizer
---	use "szw/vim-maximizer"
-	-- Notify notification engine
-	use { "rcarriga/nvim-notify", config = [[require("plugins.notify")]]}
+	use({
+	  "folke/noice.nvim",
+	  event = "VimEnter",
+	  config = [[require("noice").setup()]],
+	  requires = {
+		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+		"MunifTanjim/nui.nvim",
+		-- { "rcarriga/nvim-notify", config = [[require("plugins.notify")]]},
+		"rcarriga/nvim-notify",
+		"hrsh7th/nvim-cmp",
+		}
+	})
 	-- NVim Tree
 	use {
 		"kyazdani42/nvim-tree.lua",
@@ -39,24 +70,6 @@ return require("packer").startup(function()
 	-- Multicursors
 	use { "mg979/vim-visual-multi", branch = "master" }
 
-	-- Smooth Scroll
-	-- use {	"karb94/neoscroll.nvim",
-	-- 		config = function() require("neoscroll").setup({
-	-- 			-- All these keys will be mapped to their corresponding default scrolling animation
-	-- 			mappings = {"<C-u>", "<C-d>", "<C-b>", "<C-f>",
-	-- 						"<C-y>", "<C-e>", "zt", "zz", "zb"},
-	-- 			hide_cursor = true,          -- Hide cursor while scrolling
-	-- 			stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-	-- 			use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-	-- 			respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-	-- 			cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-	-- 			easing_function = nil,       -- Default easing function
-	-- 			pre_hook = nil,              -- Function to run before the scrolling animation starts
-	-- 			post_hook = nil,             -- Function to run after the scrolling animation ends
-	-- 			performance_mode = true,    -- Disable "Performance Mode" on all buffers.
-	-- 		}) end
-	-- }
-
 	-- nvim buffers/tabs line
 	use {
 		"akinsho/nvim-bufferline.lua",
@@ -78,27 +91,28 @@ return require("packer").startup(function()
 		config = [[require"plugins/statusline"]],
 	}
 
-	-- autoclose & autorename tags closely related to nvim-treesitter || Look at later
-	--use "windwp/nvim-ts-autotag"
 
 	-- Neovim TreeSitter
 	use {
 		"nvim-treesitter/nvim-treesitter",
-		requires = {
-		      "nvim-treesitter/nvim-treesitter-refactor",
-		      "RRethy/nvim-treesitter-textsubjects",
-		},
-		run = ":TSUpdate",
+		run = [[require('nvim-treesitter.install').update({ with_sync = true })]],
 		config = [[require"plugins/treesitter"]]
 	}
+	use "RRethy/nvim-treesitter-textsubjects"
+
+	use "nvim-treesitter/nvim-treesitter-refactor"
+
+	-- autoclose & autorename tags nvim-treesitter
+	use "windwp/nvim-ts-autotag"
+
 	-- nvim-gps
-	use {
+	 use {
 		"SmiteshP/nvim-gps",
 		requires = "nvim-treesitter/nvim-treesitter",
 		config = [[require("nvim-gps").setup()]],
 	}
 	-- indent line
-	use { "lukas-reineke/indent-blankline.nvim",
+	use {
 		requires = {
 			"nvim-treesitter/nvim-treesitter"
 		},
@@ -192,6 +206,18 @@ return require("packer").startup(function()
 	}
 	-- Lsp Status
 	use "nvim-lua/lsp-status.nvim"
+	-- Trouble diagnostics
+	use {
+	  "folke/trouble.nvim",
+	  requires = "kyazdani42/nvim-web-devicons",
+	  config = function()
+		require("trouble").setup {
+		  -- your configuration comes here
+		  -- or leave it empty to use the default settings
+		  -- refer to the configuration section below
+		}
+	  end
+}
 ----------------- Related to Keys -----------------------
 	-- Simpler keymapper in Lua
 	use "Iron-E/nvim-cartographer"
@@ -258,4 +284,11 @@ return require("packer").startup(function()
 	--use "/kimbox"
 	-- gruvbox-material
 	use "sainnhe/gruvbox-material"
-end)
+end,
+config = {
+  display = {
+    open_fn = function()
+      return require('packer.util').float({ border = 'single' })
+    end
+  }
+}})

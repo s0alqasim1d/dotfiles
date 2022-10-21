@@ -17,7 +17,7 @@ if hasMap then
 	-- Buffer navigation
 	local nnoremap_silent = nmap_silent.nore
 
-	nnoremap_silent['<C-T>'] = ':<CR>'
+	nnoremap_silent['<TAB>'] = ':<CR>'
 	nnoremap_silent['<M->>'] = ':BufferLineCycleNext<CR>'
 	nnoremap_silent['<M-<>'] = ':BufferLineCyclePrev<CR>'
 	-- map('n', '<C-T>', ':BufferNext<CR>', {noremap = true, silent = true})
@@ -79,7 +79,7 @@ if hasMap then
 	-- Indenting
 	local vnoremap_silent = map.v.nore.silent
 	vnoremap_silent['<'] = '<gv'
-	vnoremap_silent['>'] = '<gv'
+	vnoremap_silent['>'] = '>gv'
 
 	-- map('v', '<', '<gv', {noremap = true, silent = true})
 	-- map('v', '>', '>gv', {noremap = true, silent = true})
