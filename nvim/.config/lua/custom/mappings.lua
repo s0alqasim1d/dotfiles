@@ -18,7 +18,7 @@
 --  },
 -- }
 --NOTE: Remove default <leader>x binding for buffer closure
-vim.keymap.del({'n'}, '<leader>x')
+-- vim.keymap.del({'n'}, '<leader>x')
 
 local M = {}
 
@@ -33,6 +33,7 @@ M.general = {
 		--NOTE: Center screen after seeking next search result or backtracking
 		["n"] = {"nzzzv"},
 		["N"] = {"Nzzzv"},
+    ["x"] = {'"_x'},
 	},
 	v = { --NOTE: VISUAL MODE
 		--NOTE: Allow moving the cursor through wrapped lines with j, k, <Up> & <Down>
@@ -54,39 +55,39 @@ M.tabufline = {
       function()
         require("nvchad_ui.tabufline").close_buffer()
       end,
-      "close buffer",
+      "Close buffer",
     },
-  }
+  },
 }
 
 M.dap = {
   plugin = true,
   n = {
-    ["<M-b>"] = {
+    ["<leader>dh"] = {
       function ()
         require"dap".toggle_breakpoint()
       end,
       "Toggle breakpoint"
     },
-    ["<M-B>"] = {
+    ["<leader>dH"] = {
       function ()
         require"dap".set_breakpoint(vim.fn.input('Breakpoint condition: '))
       end,
       "Toggle conditional breakpoint"
     },
-    ["<F1>"] = {
+    ["<S-Down>"] = {
       function ()
         require"dap".step_into()
       end,
       "Step into"
     },
-    ["<F2>"] = {
+    ["<S-Up>"] = {
       function ()
         require"dap".step_out()
       end,
       "Step out"
     },
-    ["<F3>"] = {
+    ["<S-Right>"] = {
       function ()
         require"dap".step_over()
       end,
@@ -100,11 +101,11 @@ M.trouble = {
   plugin = true,
   n = {
     ["<leader>xx"] = {"<cmd> TroubleToggle<CR>", "Toggle trouble", opts = {silent = true, noremap = true}},
-    ["<leader>xw"] = {"<cmd> TroubleToggle workspace_diagnostics<CR>", "Toggle trouble", opts = {silent = true, noremap = true}},
-    ["<leader>xd"] = {"<cmd> TroubleToggle document_diagnostics<CR>", "Toggle trouble", opts = {silent = true, noremap = true}},
-    ["<leader>xl"] = {"<cmd> TroubleToggle loclist<CR>", "Toggle trouble", opts = {silent = true, noremap = true}},
-    ["<leader>xq"] = {"<cmd> TroubleToggle quickfix<CR>", "Toggle trouble", opts = {silent = true, noremap = true}},
-    ["<leader>xr"] = {"<cmd> TroubleToggle lsp_references<CR>", "Toggle trouble", opts = {silent = true, noremap = true}},
+    ["<leader>xw"] = {"<cmd> TroubleToggle workspace_diagnostics<CR>", "Toggle trouble workspace diagnostics", opts = {silent = true, noremap = true}},
+    ["<leader>xd"] = {"<cmd> TroubleToggle document_diagnostics<CR>", "Toggle trouble document diagnostics", opts = {silent = true, noremap = true}},
+    ["<leader>xl"] = {"<cmd> TroubleToggle loclist<CR>", "Toggle trouble location list", opts = {silent = true, noremap = true}},
+    ["<leader>xq"] = {"<cmd> TroubleToggle quickfix<CR>", "Toggle trouble quickfix list", opts = {silent = true, noremap = true}},
+    ["<leader>xr"] = {"<cmd> TroubleToggle lsp_references<CR>", "Toggle trouble lsp references", opts = {silent = true, noremap = true}},
   },
 }
 -- M.telescope = {

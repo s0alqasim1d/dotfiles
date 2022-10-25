@@ -1,12 +1,15 @@
 local overrides = require "custom.plugins.overrides"
-
+-- print("I'm running your overrides")
 return {
 
   ["goolord/alpha-nvim"] = { disable = false }, -- enables dashboard
-  ["folke/which-key.nvim"] = { disable = false, }, -- enables whichkey
+  ["folke/which-key.nvim"] = { disable = false }, -- enables whichkey
+
+  ["SmiteshP/nvim-navic"] = {},
 
   -- Override plugin definition options
   ["neovim/nvim-lspconfig"] = {
+    after = "nvim-navic",
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.plugins.lspconfig"
@@ -26,7 +29,6 @@ return {
     override_options = overrides.nvimtree,
   },
 
-  -- Install a plugin
   ["max397574/better-escape.nvim"] = {
     event = "InsertEnter",
     config = function()
@@ -43,67 +45,28 @@ return {
   },
 
   ["nvim-treesitter/nvim-treesitter-textobjects"] = {
+    opt = true,
     after = "nvim-treesitter",
   },
 
   ["nvim-treesitter/playground"] = {
-    after = "nvim-treesitter-textobjects",
-    config = function ()
-      require "nvim-treesitter.configs".setup {
-        playground = {
-          enable = true,
-          disable = {},
-          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-          persist_queries = false, -- Whether the query persists across vim sessions
-          keybindings = {
-            toggle_query_editor = 'o',
-            toggle_hl_groups = 'i',
-            toggle_injected_languages = 't',
-            toggle_anonymous_nodes = 'a',
-            toggle_language_display = 'I',
-            focus_language = 'f',
-            unfocus_language = 'F',
-            update = 'R',
-            goto_node = '<cr>',
-            show_help = '?',
-          },
-        }
-      }
-  end
+    opt = true,
+    event = "BufRead",
+    -- after = "nvim-treesitter-textobjects",
   },
+
   ["mfussenegger/nvim-dap"] = {
     opt = true,
-    -- module = { "nvim-dap", "dap" },
-    cmd = {
-      "DapContinue",
-      "DapLoadLaunchJSON",
-      "DapRestartFrame",
-      "DapSetLogLevel",
-      "DapShowLog",
-      "DapStepInto",
-      "DapStepOut",
-      "DapStepOver",
-      "DapTerminate",
-      "DapToggleBreakpoint",
-      "DapToggleRepl",
-    },
-    -- after = "nvim-treesitter",
     after = "playground",
-    -- setup = function()
-    --   require("core.lazy_load").on_file_open "nvim-dap"
-    --   require("core.utils").load_mappings "dap"
-    -- end,
-    -- config = function ()
-    --   require("dap").setup()
-    -- end,
-  },
-  ["rcarriga/nvim-dap-ui"] = {
-    opt = true,
-    after = "nvim-dap",
-    config = function()
-      require "custom.plugins.dapui"
+    setup = function ()
+      require("core.lazy_load").on_file_open "nvim-dap"
+      require("core.utils").load_mappings "dap"
     end,
+    config = function ()
+      require "custom.plugins.dap"
+    end
   },
+
   ["theHamsta/nvim-dap-virtual-text"] = {
     opt = true,
     after = "nvim-dap",
@@ -111,23 +74,40 @@ return {
       require("nvim-dap-virtual-text").setup()
     end
   },
+
+  ["rcarriga/nvim-dap-ui"] = {
+    opt = true,
+    after = "nvim-dap-virtual-text",
+    config = function()
+      require "custom.plugins.dapui"
+    end,
+  },
+
+  ["folke/todo-comments.nvim"] = {
+    opt = true,
+    -- event = "BufRead",
+    after = "nvim-dap-ui",
+    requires = {"plenary.nvim"},
+    config = function ()
+      require"todo-comments".setup()
+    end
+  },
+
   ["folke/trouble.nvim"] = {
     opt = true,
-    module = "trouble",
+    -- after = "todo-comments.nvim",
     requires = {"nvim-web-devicons",},
-    after = "nvim-dap-virtual-text",
+    setup = function ()
+      require "core.utils".load_mappings "trouble"
+    end,
     config = function ()
       require"trouble".setup()
     end
   },
-  ["folke/todo-comments.nvim"] = {
-    opt = true,
-    requires = {"plenary"},
-    after = "trouble",
-    config = function ()
-      require"todo-comments".setup()
-    end
-  }
   -- to remove plugin assign false to it here, i.e.:
-  -- ["hrsh7th/cmp-path"] = false,
+  -- ["example/plugin-to-disable"] = false,
+  ["hrsh7th/cmp-calc"] = { after = "cmp-nvim-lsp" },
+  ["hrsh7th/cmp-path"] = {
+   override_options = overrides.cmp,
+  },
 }

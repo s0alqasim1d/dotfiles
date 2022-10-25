@@ -7,8 +7,11 @@ M.ui = {
   -- transparency = true,
 }
 
+-- require "custom"
+
 M.plugins = require "custom.plugins"
 -- vim.pretty_print(M.plugins)
+
 
 M.mappings = require "custom.mappings"
 

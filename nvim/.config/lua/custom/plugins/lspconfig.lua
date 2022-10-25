@@ -1,8 +1,27 @@
-local on_attach = require("plugins.configs.lspconfig").on_attach
+-- local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local configs = require("lspconfig.configs")
+local navic = require "nvim-navic"
+local configs = require "lspconfig.configs"
+local utils = require "core.utils"
+
+-- export on_attach & capabilities for custom lspconfigs
+
+local on_attach = function(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
+
+  utils.load_mappings("lspconfig", { buffer = bufnr })
+
+  if client.server_capabilities.signatureHelpProvider then
+    require("nvchad_ui.signature").setup(client)
+  end
+
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
+end
 
 local servers = {
   arduino_language_server = {
@@ -51,7 +70,17 @@ local servers = {
 			}
 		}
   },
-  pylsp = {},
+  pyright = {
+    settings = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          diagnosticMode = "workspace",
+          useLibraryCodeForTypes = true
+        }
+      }
+    },
+  },
   powershell_es = {},
   yamlls = {
     settings = {
@@ -67,6 +96,23 @@ local servers = {
 			redhat = { telemetry = { enabled = false } },
 		}
   },
+  sumneko_lua = {
+    settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+        },
+        maxPreload = 100000,
+        preloadFileSize = 10000,
+      },
+    },
+  },
+  }
 }
 
 -- print("Configuring LSPs")
