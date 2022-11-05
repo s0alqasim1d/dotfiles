@@ -38,6 +38,11 @@ local servers = {
   tsserver = {},
   clangd = {},
   gopls = {
+    root_dir = function(fname)
+      return require "lspconfig.util".root_pattern 'go.work'(fname)
+        or
+          require "lspconfig.util".root_pattern('go.mod', '.git')(fname)
+    end,
     settings = {
 		  gopls = {
 			analyses = {
@@ -46,6 +51,9 @@ local servers = {
 			staticcheck = true,
 		  },
 		},
+  },
+  marksman = {
+    single_file_support = true,
   },
   rust_analyzer = {
     settings = {
@@ -121,6 +129,8 @@ for lsp, lsp_opts in pairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    single_file_support = true,
+
     settings = lsp_opts.settings or nil,
     cmd = configs.lsp or lsp_opts.cmd or nil,
   }
