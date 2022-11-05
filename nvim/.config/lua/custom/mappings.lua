@@ -47,18 +47,18 @@ M.general = {
 	},
 }
 
-M.tabufline = {
-  plugin = true,
-  n = {
-    -- close buffer + hide terminal buffer
-    ["<C-x>"] = {
-      function()
-        require("nvchad_ui.tabufline").close_buffer()
-      end,
-      "Close buffer",
-    },
-  },
-}
+-- M.tabufline = {
+--   plugin = true,
+--   n = {
+--     -- close buffer + hide terminal buffer
+--     ["<C-x>"] = {
+--       function()
+--         require("nvchad_ui.tabufline").close_buffer()
+--       end,
+--       "Close buffer",
+--     },
+--   },
+-- }
 
 M.dap = {
   plugin = true,
@@ -100,12 +100,12 @@ M.dap = {
 M.trouble = {
   plugin = true,
   n = {
-    ["<leader>xx"] = {"<cmd> TroubleToggle<CR>", "Toggle trouble", opts = {silent = true, noremap = true}},
-    ["<leader>xw"] = {"<cmd> TroubleToggle workspace_diagnostics<CR>", "Toggle trouble workspace diagnostics", opts = {silent = true, noremap = true}},
-    ["<leader>xd"] = {"<cmd> TroubleToggle document_diagnostics<CR>", "Toggle trouble document diagnostics", opts = {silent = true, noremap = true}},
-    ["<leader>xl"] = {"<cmd> TroubleToggle loclist<CR>", "Toggle trouble location list", opts = {silent = true, noremap = true}},
-    ["<leader>xq"] = {"<cmd> TroubleToggle quickfix<CR>", "Toggle trouble quickfix list", opts = {silent = true, noremap = true}},
-    ["<leader>xr"] = {"<cmd> TroubleToggle lsp_references<CR>", "Toggle trouble lsp references", opts = {silent = true, noremap = true}},
+    ["<M-x>x"] = {"<cmd> TroubleToggle<CR>", "Toggle trouble", opts = {silent = true, noremap = true}},
+    ["<M-x>w"] = {"<cmd> TroubleToggle workspace_diagnostics<CR>", "Toggle trouble workspace diagnostics", opts = {silent = true, noremap = true}},
+    ["<M-x>d"] = {"<cmd> TroubleToggle document_diagnostics<CR>", "Toggle trouble document diagnostics", opts = {silent = true, noremap = true}},
+    ["<M-x>l"] = {"<cmd> TroubleToggle loclist<CR>", "Toggle trouble location list", opts = {silent = true, noremap = true}},
+    ["<M-x>q"] = {"<cmd> TroubleToggle quickfix<CR>", "Toggle trouble quickfix list", opts = {silent = true, noremap = true}},
+    ["<M-x>r"] = {"<cmd> TroubleToggle lsp_references<CR>", "Toggle trouble lsp references", opts = {silent = true, noremap = true}},
   },
 }
 -- M.telescope = {
