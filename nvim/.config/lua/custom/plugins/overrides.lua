@@ -10,6 +10,7 @@ M.treesitter = {
     "c",
     "cpp",
     "go",
+    "markdown",
     "rust",
     "php",
     "python",
@@ -64,6 +65,8 @@ M.mason = {
     --GO
     "gopls",
     "delve",
+    -- Markdown
+    "marksman",
     --RUST,
     "rust-analyzer",
     --powershell
@@ -76,7 +79,7 @@ M.mason = {
     --Ansible
     "ansible-language-server",
     --Docker LS
-    "docker-language-server",
+    "dockerfile-language-server",
     -- Bash LS
     "bash-language-server",
     -- Arduino LS
