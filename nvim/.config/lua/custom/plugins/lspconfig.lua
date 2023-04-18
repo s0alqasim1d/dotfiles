@@ -33,7 +33,9 @@ local servers = {
       "-clangd", "clangd"
     }
   },
-  html = {},
+  html = {
+    filetypes = {"html", "htmldjango"}
+  },
   cssls = {},
   tsserver = {},
   clangd = {},
@@ -96,7 +98,7 @@ local servers = {
 			redhat = { telemetry = { enabled = false } },
 		}
   },
-  sumneko_lua = {
+  lua_ls = {
     settings = {
     Lua = {
       diagnostics = {
